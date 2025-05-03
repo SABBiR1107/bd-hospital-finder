@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { ambulance } from 'lucide-react';
+import { Ambulance } from 'lucide-react';
 
 const Header: React.FC = () => {
   return (

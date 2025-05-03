@@ -48,12 +48,12 @@ const HospitalSearch: React.FC<HospitalSearchProps> = ({ onSearch, onLocate, loa
             </div>
             <div className="space-y-2">
               <Label htmlFor="type">Hospital Type</Label>
-              <Select value={type || ''} onValueChange={(value) => setType(value || null)}>
+              <Select value={type || 'all'} onValueChange={(value) => setType(value === 'all' ? null : value)}>
                 <SelectTrigger id="type">
                   <SelectValue placeholder="All Types" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Types</SelectItem>
+                  <SelectItem value="all">All Types</SelectItem>
                   <SelectItem value="Government">Government</SelectItem>
                   <SelectItem value="Private">Private</SelectItem>
                 </SelectContent>
