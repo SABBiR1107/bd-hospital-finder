@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Hospital } from '../types/types';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -16,6 +15,17 @@ const HospitalDetail: React.FC<HospitalDetailProps> = ({ hospital, open, onOpenC
   if (!hospital) {
     return null;
   }
+
+  // Function to create a proper Google Maps URL for directions
+  const getDirectionsUrl = (hospital: Hospital) => {
+    // If we have coordinates, create a directions URL pointing to exact coordinates
+    if (hospital.coordinates) {
+      return `https://www.google.com/maps/dir/?api=1&destination=${hospital.coordinates.latitude},${hospital.coordinates.longitude}&destination_place_id=${encodeURIComponent(hospital.name)}`;
+    }
+    
+    // Otherwise, fall back to a search query with the hospital name and location
+    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(hospital.name + ' ' + hospital.location)}`;
+  };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -82,7 +92,7 @@ const HospitalDetail: React.FC<HospitalDetailProps> = ({ hospital, open, onOpenC
         </div>
         <DialogFooter className="flex sm:justify-between">
           <Button variant="outline" asChild>
-            <a href={hospital.googleMapsUrl} target="_blank" rel="noopener noreferrer">
+            <a href={getDirectionsUrl(hospital)} target="_blank" rel="noopener noreferrer">
               Open in Google Maps
             </a>
           </Button>
